@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Decision System</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #d4f5d4;
+            color: black;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+
+        nav {
+            text-align: center;
+            padding: 15px;
+            background: #b8e6b8;
+        }
+
+        nav a {
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 8px 15px;
+            font-weight: bold;
+            color: black;
+            transition: 0.3s;
+            border-radius: 20px;
+        }
+
+        nav a:hover {
+            background: green;
+            color: white;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            margin-top: 30px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        h2 {
+            color: green;
+            text-align: center;
+        }
+
+        #messageBox {
+            text-align: center;
+            font-size: 18px;
+            color: blue;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+    </style>
+
+    <script>
+        // Header double click
+        function headerDoubleClick() {
+            alert("Welcome to Task Decision System 🚀");
+        }
+
+        // Mouse over heading
+        function h2MouseOver(x) {
+            x.style.color = "blue";
+        }
+
+        function h2MouseOut(x) {
+            x.style.color = "green";
+        }
+
+        // Key press event
+        function keyPressEvent() {
+            alert("Key pressed!");
+        }
+
+        // Other navigation links
+        function linkClickEvent() {
+            alert("You clicked a navigation link!");
+        }
+
+        // Home click event (UPDATED)
+        function homeClickEvent() {
+            document.getElementById("messageBox").innerHTML =
+                "🚀 Welcome to Task Decision System!";
+        }
+    </script>
+</head>
+
+<body onkeypress="keyPressEvent()">
+
+    <!-- Header -->
+    <header ondblclick="headerDoubleClick()">
+        🚀 TASK DECISION SYSTEM 🚀
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#" onclick="homeClickEvent()">Home</a>
+        <a href="#" onclick="linkClickEvent()">Tasks</a>
+        <a href="#" onclick="linkClickEvent()">About</a>
+        <a href="#" onclick="linkClickEvent()">Services</a>
+        <a href="#" onclick="linkClickEvent()">Contact</a>
+    </nav>
+
+    <!-- Content -->
+    <div class="container">
+
+        <!-- Message Display -->
+        <div id="messageBox"></div>
+
+        <h2 onmouseover="h2MouseOver(this)" onmouseout="h2MouseOut(this)">
+            Welcome to Task Decision System
+        </h2>
+
+        <p>
+            The Task Decision System is designed to help users decide which task to perform first.
+            It improves decision-making by organizing tasks based on priority and importance.
+            <br><br>
+            This system helps users save time, reduce confusion, and increase productivity
+            by focusing on the most important tasks.
+        </p>
+
+        <hr>
+
+        <h2 onmouseover="h2MouseOver(this)" onmouseout="h2MouseOut(this)">
+            Why this project?
+        </h2>
+
+        <p>
+            This project focuses on helping users make better decisions about their daily tasks.
+            Many people struggle with choosing which task to do first.
+        </p>
+
+        <p>
+            This system provides a structured way to prioritize tasks based on urgency and importance,
+            improving time management and efficiency.
+        </p>
+
+        <hr>
+
+        <h2 onmouseover="h2MouseOver(this)" onmouseout="h2MouseOut(this)">
+            Project Objectives
+        </h2>
+
+        <p>• Help users decide which task to perform first</p>
+        <p>• Classify tasks based on priority</p>
+        <p>• Improve productivity and time management</p>
+        <p>• Provide simple and effective task tracking</p>
+
+    </div>
+
+</body>
+</html>

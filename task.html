@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Management System</title>
+</head>
+
+<body>
+
+<center>
+
+<h1>Decision Replay System</h1>
+<p>Plan | Decide | Review</p>
+
+<hr>
+
+<a href="index.html">Home</a> |
+<a href="system.html">Tasks</a> |
+<a href="report.html">Report</a> |
+<a href="contact.html">Contact</a>
+
+<hr>
+
+<h2>Today's Tasks</h2>
+
+<!-- Task Statistics -->
+<table border="1" cellpadding="10" width="60%" style="margin: 20px auto;">
+<tr style="background-color:#e3f2fd;">
+<td align="center"><b>📊 Total: <span id="totalCount">0</span></b></td>
+<td align="center"><b>✅ Completed: <span id="completedCount">0</span></b></td>
+<td align="center"><b>⏳ Pending: <span id="pendingCount">0</span></b></td>
+</tr>
+</table>
+
+<br>
+
+<!-- Add New Task Form -->
+<h3>Add New Task</h3>
+<form id="taskForm" style="margin: 20px auto; width: 60%;">
+<table border="1" cellpadding="10" width="100%">
+<tr>
+<td>
+<b>Task Name:</b><br>
+<input type="text" id="taskName" placeholder="Enter task..." style="width:100%; padding:8px; margin-bottom:10px;" required>
+
+<b>Priority:</b><br>
+<select id="taskPriority" style="width:100%; padding:8px; margin-bottom:10px;">
+<option value="Low">Low</option>
+<option value="Medium" selected>Medium</option>
+<option value="High">High</option>
+</select>
+
+<b>Due Date:</b><br>
+<input type="date" id="taskDate" style="width:100%; padding:8px; margin-bottom:10px;">
+
+<button type="submit" style="padding:10px 20px; background-color:#4CAF50; color:white; border:none; border-radius:5px; cursor:pointer; width:48%; margin-right:2%;">Add Task</button>
+<button type="reset" style="padding:10px 20px; background-color:#999; color:white; border:none; border-radius:5px; cursor:pointer; width:48%;">Clear</button>
+</td>
+</tr>
+</table>
+</form>
+
+<br><br>
+
+<!-- Filter and Sort Options -->
+<div style="margin: 20px auto; width: 60%; text-align:center;">
+<label><b>Sort by:</b> 
+<select id="sortFilter" style="padding:8px;">
+<option value="name">Task Name</option>
+<option value="priority">Priority (High to Low)</option>
+<option value="date">Due Date</option>
+<option value="status">Status</option>
+</select>
+</label>
+</div>
+
+<br>
+
+<!-- Task List -->
+<h3>📌 Your Tasks</h3>
+<div id="taskList" style="margin:20px auto; width:60%; text-align:left;">
+<p style="text-align:center;">No tasks yet. Add one to get started!</p>
+</div>
+
+<hr>
+
+<p style="text-align:center;">Click "Report" above to see report page.</p>
+
+</center>
+
+<script>
+// Initialize tasks from localStorage or use default tasks
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [
+    { id: 1, name: 'Study Java', priority: 'High', date: '2026-02-18', completed: false },
+    { id: 2, name: 'Go to Gym', priority: 'Medium', date: '2026-02-17', completed: false },
+    { id: 3, name: 'Complete Assignment', priority: 'High', date: '2026-02-19', completed: false }
+];
+
+let nextId = Math.max(...tasks.map(t => t.id), 0) + 1;
+let currentSort = 'name';
+
+// Display all tasks
+function displayTasks() {
+    const taskList = document.getElementById('taskList');
+    
+    if (tasks.length === 0) {
+        taskList.innerHTML = '<p style="text-align:center;">No tasks yet. Add one to get started!</p>';
+        updateStats();
+        return;
+    }
+    
+    // Sort tasks based on current sort option
+    let sortedTasks = [...tasks];
+    switch(currentSort) {
+        case 'priority':
+            const priorityOrder = { High: 1, Medium: 2, Low: 3 };
+            sortedTasks.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+            break;
+        case 'date':
+            sortedTasks.sort((a, b) => new Date(a.date || '9999-12-31') - new Date(b.date || '9999-12-31'));
+            break;
+        case 'status':
+            sortedTasks.sort((a, b) => (a.completed === b.completed) ? 0 : a.completed ? 1 : -1);
+            break;
+        default: // name
+            sortedTasks.sort((a, b) => a.name.localeCompare(b.name));
+    }
+    
+    let html = '';
+    sortedTasks.forEach(task => {
+        const priorityColor = task.priority === 'High' ? '#ff6b6b' : task.priority === 'Medium' ? '#ffa500' : '#4caf50';
+        const status = task.completed ? '✅ DONE' : '⏳ PENDING';
+        const bgColor = task.completed ? '#e8f5e9' : '#fff9e6';
+        const textStyle = task.completed ? 'text-decoration: line-through; color: #999;' : '';
+        
+        html += `
+        <div style="background-color:${bgColor}; border:2px solid ${priorityColor}; padding:15px; margin:15px 0; border-radius:8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <table width="100%" style="border-collapse:collapse;">
+            <tr>
+            <td width="5%" style="vertical-align:top;">
+                <input type="checkbox" ${task.completed ? 'checked' : ''} onchange="toggleTask(${task.id})" style="width:20px; height:20px; cursor:pointer;">
+            </td>
+            <td width="55%" style="${textStyle}">
+                <b>${task.name}</b><br>
+                <small>
+                    <span style="color:${priorityColor}; font-weight:bold;">🎯 ${task.priority}</span> | 
+                    ${task.date ? `📅 ${task.date}` : '📅 No date set'}
+                </small>
+            </td>
+            <td width="25%" align="center">
+                <span style="background-color:#e3f2fd; padding:6px 12px; border-radius:4px; font-weight:bold;">${status}</span>
+            </td>
+            <td width="15%" align="right">
+                <button onclick="editTask(${task.id})" style="padding:8px 12px; margin:2px; background-color:#2196F3; color:white; border:none; border-radius:4px; cursor:pointer;">✏️ Edit</button>
+                <button onclick="deleteTask(${task.id})" style="padding:8px 12px; margin:2px; background-color:#f44336; color:white; border:none; border-radius:4px; cursor:pointer;">🗑️ Delete</button>
+            </td>
+            </tr>
+            </table>
+        </div>`;
+    });
+    
+    taskList.innerHTML = html;
+    updateStats();
+}
+
+// Add new task
+document.getElementById('taskForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('taskName').value.trim();
+    const priority = document.getElementById('taskPriority').value;
+    const date = document.getElementById('taskDate').value;
+    
+    if (name) {
+        tasks.push({
+            id: nextId++,
+            name: name,
+            priority: priority,
+            date: date,
+            completed: false
+        });
+        
+        saveTasks();
+        displayTasks();
+        this.reset();
+    }
+});
+
+// Toggle task completion
+function toggleTask(id) {
+    const task = tasks.find(t => t.id === id);
+    if (task) {
+        task.completed = !task.completed;
+        saveTasks();
+        displayTasks();
+    }
+}
+
+// Delete task
+function deleteTask(id) {
+    if (confirm('Are you sure you want to delete this task?')) {
+        tasks = tasks.filter(t => t.id !== id);
+        saveTasks();
+        displayTasks();
+    }
+}
+
+// Edit task
+function editTask(id) {
+    const task = tasks.find(t => t.id === id);
+    if (task) {
+        const newName = prompt('Edit task name:', task.name);
+        if (newName && newName.trim()) {
+            task.name = newName.trim();
+            saveTasks();
+            displayTasks();
+        }
+    }
+}
+
+// Update statistics
+function updateStats() {
+    const total = tasks.length;
+    const completed = tasks.filter(t => t.completed).length;
+    const pending = total - completed;
+    
+    document.getElementById('totalCount').textContent = total;
+    document.getElementById('completedCount').textContent = completed;
+    document.getElementById('pendingCount').textContent = pending;
+}
+
+// Sort filter change
+document.getElementById('sortFilter').addEventListener('change', function(e) {
+    currentSort = e.target.value;
+    displayTasks();
+});
+
+// Save tasks to localStorage
+function saveTasks() {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+// Initial display
+displayTasks();
+</script>

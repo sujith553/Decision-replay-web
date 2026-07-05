@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Task Route System - Registration</title>
+
+<style>
+body{
+font-family:Arial;
+background:#eef2ff;
+}
+
+.container{
+width:40%;
+margin:auto;
+background:white;
+padding:20px;
+text-align:center;
+}
+
+table{
+width:100%;
+}
+
+td{
+padding:8px;
+}
+
+input{
+width:90%;
+padding:5px;
+}
+
+/* Fix radio & checkbox size */
+input[type="radio"], input[type="checkbox"]{
+width:auto;
+}
+</style>
+
+<script>
+
+function validateForm(){
+
+var name=document.forms["regForm"]["name"].value;
+var email=document.forms["regForm"]["email"].value;
+var phone=document.forms["regForm"]["phone"].value;
+var password=document.forms["regForm"]["password"].value;
+var confirmPassword=document.forms["regForm"]["confirm_password"].value;
+var task=document.forms["regForm"]["task"].value;
+
+/* Name validation */
+if(name==""){
+alert("Enter your name");
+return false;
+}
+
+/* Email validation */
+var emailPattern=/^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+if(!email.match(emailPattern)){
+alert("Enter valid email");
+return false;
+}
+
+/* Phone validation */
+var phonePattern = /^\+91\s[0-9]{10}$/;
+
+if(!phone.match(phonePattern)){
+alert("Enter valid 10 digit phone number");
+return false;
+}
+
+/* Password validation */
+if(password.length<6){
+alert("Password must be at least 6 characters");
+return false;
+}
+
+/* Confirm password */
+if(password!=confirmPassword){
+alert("Passwords do not match");
+return false;
+}
+
+/* Task validation */
+if(task==""){
+alert("Enter task name");
+return false;
+}
+
+alert("Registration Successful");
+return true;
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Task Route System</h1>
+<p>User Registration</p>
+
+<hr>
+
+<form name="regForm" onsubmit="return validateForm()" action="insert.php" method="post">
+
+<table border="1">
+
+<tr>
+<td>Name</td>
+<td><input type="text" name="name"></td>
+</tr>
+
+<tr>
+<td>Email</td>
+<td><input type="text" name="email"></td>
+</tr>
+
+<tr>
+<td>Phone</td>
+<td><input type="text" name="phone"></td>
+</tr>
+
+<tr>
+<td>Password</td>
+<td><input type="password" name="password"></td>
+</tr>
+
+<tr>
+<td>Confirm Password</td>
+<td><input type="password" name="confirm_password"></td>
+</tr>
+
+<tr>
+<td>Task Name</td>
+<td><input type="text" name="task"></td>
+</tr>
+
+<tr>
+<td>Deadline</td>
+<td><input type="date" name="deadline"></td>
+</tr>
+
+<!-- Radio Buttons (Same Line) -->
+<tr>
+<td>Gender</td>
+<td>
+<label><input type="radio" name="gender" value="Male"> Male</label>
+<label style="margin-left:15px;"><input type="radio" name="gender" value="Female"> Female</label>
+<label style="margin-left:15px;"><input type="radio" name="gender" value="Other"> Other</label>
+</td>
+</tr>
+
+<!-- Checkboxes (Same Line) -->
+<tr>
+<td>Skills</td>
+<td>
+<label><input type="checkbox" name="skills[]" value="HTML"> HTML</label>
+<label style="margin-left:15px;"><input type="checkbox" name="skills[]" value="CSS"> CSS</label>
+<label style="margin-left:15px;"><input type="checkbox" name="skills[]" value="JavaScript"> JavaScript</label>
+</td>
+</tr>
+
+<tr>
+<td colspan="2" align="center">
+<input type="submit" value="Register">
+<input type="reset" value="Clear">
+</td>
+</tr>
+
+</table>
+
+</form>
+
+<hr>
+
+<p>© 2026 Task Route System</p>
+
+</div>
+
+</body>
+</html>

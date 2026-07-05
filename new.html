@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wildlife Conservation Project</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)),
+                        url("images/bg.jpg");
+            background-size: cover;
+            background-attachment: fixed;
+            color: white;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px;
+            font-size: 28px;
+            letter-spacing: 4px;
+            font-weight: bold;
+            text-shadow: 3px 3px 10px black;
+        }
+
+        nav {
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 8px 15px;
+            font-weight: bold;
+            transition: 0.3s;
+            border-radius: 20px;
+        }
+
+        nav a:hover {
+            background: #2ecc71;
+            color: black;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 40px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 20px;
+            margin-top: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+
+        h2 {
+            text-align: center;
+            color: #2ecc71;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .quote {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(46, 204, 113, 0.2);
+            border-left: 5px solid #2ecc71;
+            font-style: italic;
+            font-size: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background: rgba(0,0,0,0.7);
+        }
+    </style>
+
+    <script>
+        function headerDoubleClick() {
+            alert("Header double-clicked!");
+        }
+
+        function h2MouseOver(x) {
+            x.style.color = "yellow";
+        }
+
+        function h2MouseOut(x) {
+            x.style.color = "#2ecc71";
+        }
+
+        function keyPressEvent() {
+            alert("A key is pressed!");
+        }
+
+        function linkClickEvent() {
+            alert("Redirecting to next page!");
+        }
+    </script>
+</head>
+
+<body onkeypress="keyPressEvent()">
+
+    <header ondblclick="headerDoubleClick()">
+        🌿 WILDLIFE CONSERVATION SYSTEM 🌿
+    </header>
+
+    <nav>   
+        <a href="introduction.html" onclick="linkClickEvent()">Introduction</a>
+        <a href="importance.html" onclick="linkClickEvent()">Importance</a>
+        <a href="objectives.html" onclick="linkClickEvent()">Objectives</a>
+        <a href="scope.html" onclick="linkClickEvent()">Scope</a>
+        <a href="gallery.html" onclick="linkClickEvent()">Gallery</a>
+        <a href="contact.html" onclick="linkClickEvent()">Contact</a>
+    </nav>
+
+    <div class="container">
+        <h2 onmouseover="h2MouseOver(this)" onmouseout="h2MouseOut(this)">
+            Introduction to Wildlife
+        </h2>
+
+        <p>
+            Wildlife refers to all living organisms that exist in natural environments.
+            It includes animals, birds, insects, and plants that play a crucial role
+            in maintaining ecological balance.
+            <br><br>
+            A Wildlife Management System is designed to protect and manage wild animals and their natural habitats.
+            It helps in monitoring wildlife populations, conserving endangered species, and maintaining ecological balance.
+            <br><br>
+            The system focuses on reducing threats such as illegal hunting, habitat loss, and environmental pollution.
+            Wildlife management plays an important role in preserving biodiversity and ensuring that forests, animals,
+            and humans can coexist peacefully.
+            <br><br>
+            By using proper planning, conservation methods, and awareness programs,
+            a Wildlife Management System helps protect nature for present and future generations.
+        </p>
+
+        <div class="quote">
+            "The greatness of a nation and its moral progress can be judged by the way its animals are treated."
+            <br><br>
+            <b>- Mahatma Gandhi</b>
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Information Form</title>
+
+    <style>
+        body{
+            font-family: Arial;
+            background:#e9eef3;
+        }
+
+        .container{
+            width:60%;
+            margin:auto;
+            background:white;
+            padding:20px;
+            border-radius:12px;
+            text-align:center;
+        }
+
+        h1{
+            color:#2c3e50;
+        }
+
+        .nav a{
+            text-decoration:none;
+            font-weight:bold;
+            margin:8px;
+            color:#333;
+        }
+
+        .nav a:hover{
+            color:#0077cc;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:15px;
+        }
+
+        td{
+            padding:10px;
+        }
+
+        input,select,textarea{
+            width:90%;
+            padding:6px;
+            border-radius:6px;
+            border:1px solid #ccc;
+        }
+
+        textarea{
+            height:80px;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"]{
+            width:auto;
+        }
+
+        input[type="submit"]{
+            background:#28a745;
+            color:white;
+            border:none;
+            padding:8px 15px;
+            cursor:pointer;
+        }
+
+        input[type="reset"]{
+            background:#dc3545;
+            color:white;
+            border:none;
+            padding:8px 15px;
+            cursor:pointer;
+        }
+
+        #result{
+            display:none;
+            border:2px solid #0077cc;
+            padding:15px;
+            margin-top:20px;
+            border-radius:10px;
+            background:#f4faff;
+        }
+
+        .footer{
+            margin-top:20px;
+            color:#555;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Task Route System</h1>
+<p><b>User Information & Feedback Form</b></p>
+
+<hr>
+
+<div class="nav">
+<a href="index.html">Home</a> |
+<a href="system.html">Tasks</a> |
+<a href="report.html">Report</a> |
+<a href="contact.html">Form</a>
+</div>
+
+<hr>
+
+<h2 style="color:#0077cc;">Enter Your Details</h2>
+
+<form id="userForm">
+
+<table border="1">
+
+<tr>
+<td><b>Full Name</b></td>
+<td><input type="text" name="Name" required></td>
+</tr>
+
+<tr>
+<td><b>Email</b></td>
+<td><input type="email" name="Email" required></td>
+</tr>
+
+<tr>
+<td><b>Gender</b></td>
+<td align="left">
+<label><input type="radio" name="Gender" value="Male" required> Male</label><br>
+<label><input type="radio" name="Gender" value="Female"> Female</label><br>
+<label><input type="radio" name="Gender" value="Other"> Other</label>
+</td>
+</tr>
+
+<tr>
+<td><b>User Type</b></td>
+<td>
+<select name="User Type" required>
+<option value="">Select</option>
+<option>Student</option>
+<option>Admin</option>
+<option>Guest</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td><b>Status</b></td>
+<td align="left">
+<label><input type="radio" name="Status" value="Completed" required> Completed</label><br>
+<label><input type="radio" name="Status" value="Pending"> Pending</label>
+</td>
+</tr>
+
+<tr>
+<td><b>Subscribe</b></td>
+<td align="left">
+<label><input type="checkbox" name="Subscribe"> Yes, send updates</label>
+</td>
+</tr>
+
+<tr>
+<td><b>Feedback</b></td>
+<td>
+<textarea name="Feedback" required></textarea>
+</td>
+</tr>
+
+<tr>
+<td colspan="2" align="center">
+<input type="submit" value="Submit">
+<input type="reset" value="Clear">
+</td>
+</tr>
+
+</table>
+
+</form>
+
+<hr>
+
+<div id="result">
+<h2>Submitted Information</h2>
+<div id="output"></div>
+<p id="time"></p>
+</div>
+
+<div class="footer">
+<p>© 2026 Task Route System</p>
+</div>
+
+</div>
+
+<script>
+document.getElementById("userForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    let resultHTML = "";
+
+    formData.forEach(function(value,key){
+        resultHTML += "<p><b>"+key+":</b> "+value+"</p>";
+    });
+
+    document.getElementById("output").innerHTML = resultHTML;
+    document.getElementById("time").innerHTML = "Submitted at: " + new Date().toLocaleString();
+    document.getElementById("result").style.display="block";
+});
+</script>
+
+</body>
+</html>
